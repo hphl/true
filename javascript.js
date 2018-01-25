@@ -1,6 +1,13 @@
 $( document ).ready(function() {
-	var curl = 'https://api.github.com/users?since=0';
-	getUsers(curl);
+  var curl = 'https://api.github.com/users?since=0';
+  var btn_load = createNode("button","btn btn-primary btn-load-users");
+  btn_load.setAttribute("data-link",curl);
+  btn_load.textContent = "Load More Users";
+  append(document.getElementById("pagination"), btn_load);
+  getUsers(curl);
+  $(".btn-load-users").click(function(){
+    getUsers($(this).attr("data-link"));
+  });
 });
 function getUsers(url){
   fetch(url,{
@@ -12,7 +19,7 @@ function getUsers(url){
   .then(function(response) {
     var pagination_links = response.headers.get('Link').split(',');
     var next_page = pagination_links[0].split(';');
-    $("#pagination .btn-next").attr("data-link",next_page[0].replace(/<|>/g,''));
+    $("#pagination .btn-load-users").attr("data-link",next_page[0].replace(/<|>/g,''));
     return response.json(); // Transform the data into json
   })
   .then(function(data) {
