@@ -1,8 +1,6 @@
 
 $( document ).ready(function() {
-  var btn_next = createNode("a","btn btn-primary btn-next");
-  btn_next.textContent = "Next Page";
-  append(document.getElementById("pagination"), btn_next);
+  createNextButton("Next Page");
   getRepositories();
 });
 /*creates the repositories to display*/
@@ -17,11 +15,8 @@ function getRepositories(){
       }
   })
   .then(function(response) {
-    var pagination_links = response.headers.get('Link').split(',');
-    var next_page = pagination_links[0].split(';');
-    next_page = next_page[0].replace(/<|>/g,'');
-    var next_page_num = getUrlParameter("page",next_page);
-    var base_url = document.URL.substring(0,document.URL.indexOf('?')+1);
+    var next_page_num = getUrlParameter("page",nextPageURL(response.headers.get('Link'))); /*gets the next page number from the next page url*/
+    var base_url = document.URL.substring(0,document.URL.indexOf('?')+1); /*gets the current base url*/
     $(".btn-next").attr("href",base_url +'&user=' + user_name + '&page=' + next_page_num + '&per_page=' +  per_page);
     return response.json(); // Transform the data into json
   })
@@ -34,30 +29,7 @@ function getRepositories(){
     console.log(error);
   });
 }
-function createNode(element, classes){
-  var new_element = document.createElement(element);
-  if(typeof classes !== 'undefined')
-    new_element.className = classes;
-  return new_element;
-}
-function append(parent, el) {
-    return parent.appendChild(el);
-}
-function getUrlParameter(param, page_url) {
-    if(typeof page_url === 'undefined'){
-      page_url = decodeURIComponent(window.location.search.substring(1));
-    }else{
-      page_url = page_url.substring(page_url.indexOf('?') + 1);
-    }
-    var url_variables = page_url.split('&'),
-        parameter_name;
-    for (var i = 0; i < url_variables.length; i++) {
-        parameter_name = url_variables[i].split('=');
-        if (parameter_name[0] === param) {
-            return parameter_name[1] === undefined ? true : parameter_name[1];
-        }
-    }
-}
+/*creates the repos layout*/
 function createRepoNode(repo){
   var repo_github = createNode("a", "btn btn-primary center-block"),
       repo_name = createNode("h3","text-center ellipsis"),

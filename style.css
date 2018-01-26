@@ -10,7 +10,6 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
-/**/
 .flex-row.row {
 	 display: flex;
 	 flex-wrap: wrap;  /*the flexible items wrap if necessary*/
@@ -18,10 +17,6 @@
 .flex-row.row > [class*='col-'] {
 	 display: flex;
 	 flex-direction: column;
-}
-.flex-row.row:after,
-.flex-row.row:before {
-	 display: flex;
 }
 .flex-row .thumbnail,
 .flex-row .caption {

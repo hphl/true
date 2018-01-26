@@ -1,0 +1,10 @@
+Notes:
+- The Creation of the layout (users and repositories) is too complicated, probably is better to use some Templating Engine for JavaScript.
+- Align the images from the users when the image is to small.
+- If the incompatibility is too big using the Fetch API, change to jQuery.ajax() instead.
+- If the titles of the repositories are too long, they could be displayed in multiple lines instead of cut it.
+- Improve the method to add parameters in the url and get those parameters.
+- The next page button in the repositories page should display a different text (Previous Page) when it goes back to the previous page.
+- The repositories page should redirect to users page when there isn't any parameter in the url.
+Observations:
+- The github responses didn't have the issues only the open issues.
