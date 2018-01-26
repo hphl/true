@@ -6,6 +6,20 @@ $( document ).ready(function() {
     getUsers($(this).attr("data-link"));
   });
 });
+function getUser2(url){
+  $.ajax({
+   type: 'POST',
+   url:'url.do',
+   data: formData,
+   success: function(data, textStatus, request){
+        alert(request.getResponseHeader('some_header'));
+   },
+   error: function (request, textStatus, errorThrown) {
+        alert(request.getResponseHeader('some_header'));
+   }
+  });
+}
+
 /*function that gets the users from github and creates the layout*/
 function getUsers(url){
   if(typeof url === 'undefined'){ //if there is no url in the parameter, it will set a default url

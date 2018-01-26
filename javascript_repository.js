@@ -15,13 +15,15 @@ function getRepositories(){
       }
   })
   .then(function(response) {
+    //console.log(response);
+    console.log(response.headers.get('Link'));
     var next_page_num = getUrlParameter("page",nextPageURL(response.headers.get('Link'))); /*gets the next page number from the next page url*/
     var base_url = document.URL.substring(0,document.URL.indexOf('?')+1); /*gets the current base url*/
     $(".btn-next").attr("href",base_url +'&user=' + user_name + '&page=' + next_page_num + '&per_page=' +  per_page);
     return response.json(); // Transform the data into json
   })
   .then(function(data) {
-    //console.log(data);
+    console.log(data);
     data.forEach(createRepoNode);
   })
   .catch(function(error) {
@@ -35,7 +37,7 @@ function createRepoNode(repo){
       repo_name = createNode("h3","text-center ellipsis"),
       repo_description = createNode("p","flex-text"),
       repo_forks = createNode("li","list-group-item"),
-      repo_open_issues = createNode("li","list-group-item");
+      repo_open_issues = createNode("li","list-group-item"),
       column = createNode("div", "col-xs-6 col-sm-4 col-md-3"),
       repo_box = document.getElementById('repositories-box'),
       thumbnail_div = createNode("div","thumbnail"),

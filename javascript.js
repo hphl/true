@@ -39,7 +39,11 @@ function createNextButton(text){
 function nextPageURL(link){
   var pagination_links = link.split(','); /*returns something like: Array [ "<https://api.github.com/user/1/repos?page=2&per_page=8>; rel=\"next\"",
                                                                   " <https://api.github.com/user/1/repos?page=8&per_page=8>; rel=\"last\"" ] */
-  var next_page = pagination_links[0].split(';'); /*the url is in the first part before the ";"*/
+  if(pagination_links.length > 2){
+    var next_page = pagination_links[1].split(';'); /*the url is in the first part before the ";"*/
+  }else{
+    var next_page = pagination_links[0].split(';'); /*the url is in the first part before the ";"*/
+  }
   return next_page[0].replace(/<|>/g,''); /*removes the "<" and ">" characters*/
 }
 /**/
